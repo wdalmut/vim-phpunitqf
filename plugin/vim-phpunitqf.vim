@@ -14,7 +14,7 @@
 " to load it automatically, or load it manually with :so sauce.vim.
 "
 " License: MIT
-"                
+"
 " }}}
 " ------------------------------------------------------------------------------
 
@@ -59,6 +59,11 @@ if !exists("g:phpunit_debug")
     let g:phpunit_debug=0
 endif
 
+" Handle the quickfix feature
+if !exists("g:phpunit_quickfix")
+    let g:phpunit_quickfix=1
+endif
+
 if !exists("g:phpunit_callback")
     let g:phpunit_callback = ""
 endif
@@ -75,7 +80,9 @@ function! s:RunPHPUnitTests(arg)
     " Truncate current log file
     call system("> ".g:phpunit_tmpfile)
     exe "!".g:phpunit_cmd." ".g:phpunit_args." ".s:args." ".g:phpunit_args_append." 2>&1 | tee ".g:phpunit_tmpfile
-    python parse_test_output()
+    if g:phpunit_quickfix==1
+        python parse_test_output()
+    endif
 endfunction
 
 " Open the test output

@@ -94,6 +94,14 @@ function! CakePHPTestCallback(args)
 endfunction
 ```
 
+### Disable the Quickfix window
+
+You can stop the quickfix windows with:
+
+```vim
+let g:phpunit_quickfix=0
+```
+
 ### License
 
 This plugin is released under the [MIT License][3].

@@ -14,7 +14,7 @@
 " to load it automatically, or load it manually with :so sauce.vim.
 "
 " License: MIT
-"                
+"
 " }}}
 " ------------------------------------------------------------------------------
 
@@ -36,7 +36,13 @@ endif
 
 " PHPUnit command
 if !exists("g:phpunit_cmd")
-    let g:phpunit_cmd='phpunit'
+    if filereadable('./bin/phpunit')
+        let g:phpunit_cmd='./bin/phpunit'
+    elseif filereadable('./vendor/bin/phpunit')
+        let g:phpunit_cmd='./vendor/bin/phpunit'
+    else
+        let g:phpunit_cmd='phpunit'
+    endif
 endif
 
 " Static arguments passed to the PHPUnit command
